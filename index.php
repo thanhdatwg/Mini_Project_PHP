@@ -2,8 +2,6 @@
 
 session_start();
 $conn = mysqli_connect('localhost', 'root', 'root' , 'Mini_project_php') or die ('Unable to connect');
-
-
 ?>
 
 <!DOCTYPE html>
@@ -56,24 +54,24 @@ $conn = mysqli_connect('localhost', 'root', 'root' , 'Mini_project_php') or die 
         header("Location:login.php");
     }
     ?>
+    <?php
+        $select = mysqli_query($conn," SELECT * FROM tb_student WHERE Username = '$Username' AND Pass = '$Pass' ");
+        $row  = mysqli_fetch_array($select);
 
-    $select = mysqli_query($conn," SELECT * FROM tb_student WHERE Username = '$Username' AND Pass = '$Pass' ");
-    $row  = mysqli_fetch_array($select);
-
-    if(is_array($row)) {
-        $_SESSION["Username"] = $row['Username'];
-        $_SESSION["Pass"] = $row['Pass'];
-    }   else {
-        echo '<script type = "text/javascript">';
-        echo 'alert("Invalid Username or Password!");';
-        echo 'window.location.href = "index.php" ';
-        echo '</script>';
-    }
-    }
-    if(isset($_SESSION["Username"])){
-        header("Location:Views/home.php");
-    }
-?>
+        if(is_array($row)) {
+            $_SESSION["Username"] = $row['Username'];
+            $_SESSION["Pass"] = $row['Pass'];
+        }   else {
+            echo '<script type = "text/javascript">';
+            echo 'alert("Invalid Username or Password!");';
+            echo 'window.location.href = "index.php" ';
+            echo '</script>';
+        }
+        
+        if(isset($_SESSION["Username"])){
+            header("Location:Views/home.php");
+        }
+    ?>
 
 </body>
 </html>
