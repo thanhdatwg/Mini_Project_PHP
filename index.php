@@ -1,103 +1,190 @@
 <?php
 
-session_start(); // Hàm session_start() được sử dụng để bắt đầu một session.
-// Dòng lệnh session_start() sẽ đăng ký phiên làm việc của người dùng trên Server, từ đó Server sẽ tạo ra một ID riêng không trùng lặp để nhận diện cho client hiện tại
-$host = 'localhost';
-$username = 'root';
-$password = 'root';
-$database_name = 'Mini_project_php';
+session_start();
 
 //connection to server & database
-$conn = mysqli_connect($host, $username, $password, $database_name) or die('Unable to connect');
+$conn = mysqli_connect('localhost', 'root', 'root', 'Mini_project_php') or die('Unable to connect');
+
+if (isset($_POST["login"])) {
+
+    $username = $_POST['username'];
+
+    $password = $_POST['password'];
+
+    $sql = "Select * from tb_student where Username ='$username' and Pass ='$password'";
+
+    $result = mysqli_query($conn, $sql);
+
+    $row = mysqli_fetch_array($result);
+
+    if ($row) {
+
+        $_SESSION["username"] = $row["Username"];
+
+
+        if (!empty($_POST["remember"])) {
+
+            setcookie("user_login", $_POST["username"], time() + (10 * 365 * 24 * 60 * 60));
+
+            setcookie("userpassword", $_POST["password"], time() + (10 * 365 * 24 * 60 * 60));
+        } else {
+
+            if (isset($_COOKIE["user_login"])) {
+
+                setcookie("user_login", "");
+            }
+
+            if (isset($_COOKIE["userpassword"])) {
+
+                setcookie("userpassword", "");
+            }
+        }
+
+        header('location:Views/home.php');
+    } else {
+
+        $message = "Invalid Login";
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mini-Project-PHP</title>
+
     <style>
-        body {
-            text-align: center;
+        #login {
+
+
+
+            padding: 20px 60px;
+
+            background: #25AAE1;
+
+            color: #555;
+
+            display: inline-block;
+
+            border-radius: 4px;
+
         }
 
-        .field {
-            margin-bottom: 20px;
+        .field-group {
+
+            margin-top: 15px;
+
+        }
+
+        .input-field {
+
+            padding: 8px;
+
+            width: 200px;
+
+            border: #A3C3E7 1px solid;
+
+            border-radius: 4px;
+
+        }
+
+        .form-submit-button {
+
+            background: #EC008C;
+
+            border: 0;
+
+            padding: 8px 20px;
+
+            border-radius: 4px;
+
+            color: #FFF;
+
+            text-transform: uppercase;
+
+        }
+
+        .error-message {
+
+            text-align: center;
+
+            color: #FF0000;
+
         }
     </style>
 
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
 
-    <h2>Please Login</h2>
-    <div>
-        <form action="index.php" method="post">
-            <input type="text" class="field" name="Username" placeholder="Username" required=""><br />
-            <input type="password" class="field" name="Pass" placeholder="Password" required=""><br />
-            <input type="checkbox" name="remember" <?php if (isset($_COOKIE["member_login"])) { ?> checked <?php } ?> />
-            <label for="remember-me">Remember me</label>
-            <br />
-            <input type="submit" class="field" name="login" value="Login">
+    <div align="center">
 
+
+
+        <form action="" method="post" id="login">
+
+            <div class="error-message"><?php if (isset($message)) {
+                                            echo $message;
+                                        } ?></div>
+
+            <h4>Please login</h4>
+
+            <div class="field-group">
+
+                <div><label for="login">Username</label></div>
+
+                <div>
+
+
+
+                    <input name="username" type="text" value="<?php if (isset($_COOKIE["user_login"])) {
+                                                                    echo $_COOKIE["user_login"];
+                                                                } ?>" class="input-field">
+
+                </div>
+
+                <div class="field-group">
+
+                    <div><label for="password">Password</label></div>
+
+                    <div><input name="password" type="password" value="<?php if (isset($_COOKIE["userpassword"])) {
+                                                                            echo $_COOKIE["userpassword"];
+                                                                        } ?>" class="input-field">
+
+                    </div>
+
+                    <div class="field-group">
+
+                        <div><input type="checkbox" name="remember" id="remember" <?php if (isset($_COOKIE["user_login"])) { ?> checked <?php } ?> />
+
+                            <label for="remember-me">Remember me</label>
+
+                        </div>
+
+                        <div class="field-group">
+
+                            <div><input type="submit" name="login" value="Login" class="form-submit-button"></span></div>
+
+                        </div>
 
         </form>
+
     </div>
-    <?php
-    include 'Apps/libraries.php';
 
-    $a = new Apps_Libs_DbConnection;
-    ?>
-
-    <?php
-    if (isset($_POST['login'])) {
-        if (!empty($_POST["Username"]) && !empty($_POST["Pass"])) {
-            $Username = $_POST['Username'];
-            $Pass = $_POST['Pass'];
-            $select = mysqli_query($conn, " SELECT * FROM tb_student WHERE Username = '$Username' AND Pass = '$Pass' ");
-            $row = mysqli_fetch_array($select);
-            if ($row) {
-                if (!empty($_POST["remember"])) {
-                    setcookie("member_login", $Username, time() + (10 * 365 * 24 * 60 * 60));
-                    setcookie("member_password", $Pass, time() + (10 * 365 * 24 * 60 * 60));
-                    $_SESSION["Username"] = $Username;
-                } else {
-                    if (isset($_COOKIE["member_login"])) {
-                        setcookie("member_login", "");
-                    }
-                    if (isset($_COOKIE["member_password"])) {
-                        setcookie("member_password", "");
-                    }
-                }
-                header("Location:Views/home.php");
-            } else {
-                $message = "Invalid Login";
-            }
-        } else {
-            $message = "Both are Required Fields";
-        }
-        // $Username = $_POST['Username'];
-        // $Pass = $_POST['Pass'];
-
-        // $select = mysqli_query($conn, " SELECT * FROM tb_student WHERE Username = '$Username' AND Pass = '$Pass' ");
-        // $row = mysqli_fetch_array($select);
-
-        // if (is_array($row)) {
-        //     $_SESSION["Username"] = $row['Username'];
-        //     $_SESSION["Pass"] = $row['Pass'];
-        // } else {
-        //     echo '<script type = "text/javascript">';
-        //     echo 'alert("Invalid Username or Password!");';
-        //     echo 'window.location.href = "index.php" ';
-        //     echo '</script>';
-        // }
-    }
-    // if (isset($_SESSION["Username"])) {
-    //     header("Location:Views/home.php");
-    // }
-    ?>
-
+    <div>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- horizental ad -->
+        <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-8906663933481361" data-ad-slot="6662734336"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
 
 
 </body>
