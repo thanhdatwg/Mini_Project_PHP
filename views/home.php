@@ -91,7 +91,23 @@ $allProducts = $modelProducts->buildQueryParams([
 
 <body>
 
-    <h2>Welcome <?php echo $_SESSION['Username']; ?></h2>
+    <h2>Welcome <?php echo $_SESSION['username']; ?></h2>
+    <div align="center">
+        <?php if (empty($_SESSION["username"])) {
+
+            header('location:index.php')
+
+        ?>
+
+
+
+        <?php } else { ?>
+
+            <div class="member-dashboard">You have Successfully logged in!. <a href="logout.php" style="color: #fff">Logout</a></div>
+
+        <?php } ?>
+
+    </div>
     Click here to <a href="logout.php">Logout</a>
     <br />
     <p></p>
