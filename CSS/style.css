@@ -1,3 +1,18 @@
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+.btn {
+    border: 1px solid rgba(42, 254, 250, 1);
+    background-color: none;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-family: "montserrat";
+    cursor: pointer;
+    transition: 0.8s;
+    position: relative;
+    overflow: hidden;
+}
+
 .customers {
   border-collapse: collapse;
   width: 700px;
@@ -32,4 +47,7 @@
 }
 .customers tbody tr:last-of-type {
     border-bottom: 2px solid #009879;
+}
+.container {
+    margin-top: 20px;
 }
