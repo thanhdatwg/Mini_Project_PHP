@@ -50,7 +50,7 @@ class Apps_Libs_DbConnection {
     public function query ($sql, $param = []){
         $q = self::$connection->prepare($sql);
         if ($param && is_array($param)){
-            $q->execute($sql);
+            $q->execute($param);
         } else {
             $q->execute();
         }
@@ -78,9 +78,10 @@ class Apps_Libs_DbConnection {
     public function insert () {
         $sql = "insert into ". $this->tableName . " " . $this->queryParams["field"];
         $result = $this->query($sql,$this->queryParams["values"]);
-
+        
         if ($result){
-            return self::$connection->lastInsertId();
+            // return self::$connection->lastInsertId();
+            return $this->queryParams["values"];
         } else return FALSE; 
     }
 
