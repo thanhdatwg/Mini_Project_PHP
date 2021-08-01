@@ -65,56 +65,103 @@ $allProducts = $modelProducts->buildQueryParams([
     </div>
     <script src="../Apps/JS/showHideElement.js"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
             // fetch data by ajax
-            function fetch_data () {
+            function fetch_data() {
                 $.ajax({
                     url: "../Apps/Libs/ajax.php",
                     method: "POST",
-                    success : function (data) {
+                    success: function(data) {
                         $('#load_data_ajax').html(data);
-                    }, 
+                    },
                 });
             }
             fetch_data();
             //delete data
-            $(document).on('click', '.del_data', function () {
+            $(document).on('click', '.del_data', function() {
                 var id = $(this).data('id_del');
                 $.ajax({
                     url: "../Apps/Libs/ajax.php",
                     method: "POST",
-                    data: {id:id},
-                    success : function (data) {
+                    data: {
+                        id: id
+                    },
+                    success: function(data) {
                         alert('Xoa thanh cong');
                         fetch_data();
-                    }, 
+                    },
                 });
             });
 
             // insert data
-            $('#add_button').on('click',function (event){
-                event.preventDefault();
+            $('#add_button').on('click', function(event) {
+                // event.preventDefault();
                 var name = $('#name').val();
                 var price = $('#price').val();
                 var quantity = $('#quantity').val();
-
-                if (name== '' || price=='' || quantity ==''){
-                    alert('khong duoc bo trong cac tuong');
-                } else {
+                let hasError = false
+                if (name == '' || price == '' || quantity == '') {
+                    hasError = true
+                }
+                if (!hasError) {
                     $.ajax({
                         url: "../Apps/Libs/ajax.php",
                         method: "POST",
-                        data: {name:name, price:price, quantity:quantity},
-                        success : function (data) {
+                        data: {
+                            name: name,
+                            price: price,
+                            quantity: quantity
+                        },
+                        success: function(data) {
                             alert('Thêm sản phẩm thành công!');
                             $('#add_product')[0].reset();
                             fetch_data();
-                        }, 
+                        },
                     });
                 }
+
             });
+
+            $(document).on('click', '#update_product', function() {
+                var el = document.getElementById("code-product")
+                var range = document.createRange()
+                var sel = window.getSelection()
+
+                range.setStart(el.childNodes[2], 5)
+                range.collapse(true)
+
+                sel.removeAllRanges()
+                sel.addRange(range)
+                $("#update_product").css({
+                    "display": "none"
+                });
+                $("#delete_product").css({
+                    "display": "none"
+                });
+                $("#save_value").css({
+                    "display": "block"
+                });
+                $("#cancel").css({
+                    "display": "block"
+                });
+
+            })
+            $(document).on('click', '#cancel', function() {
+                $("#update_product").css({
+                    "display": "block"
+                });
+                $("#delete_product").css({
+                    "display": "block"
+                });
+                $("#save_value").css({
+                    "display": "none"
+                });
+                $("#cancel").css({
+                    "display": "none"
+                });
+
+            })
         });
-        
     </script>
 </body>
 
