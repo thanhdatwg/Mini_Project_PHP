@@ -12,7 +12,15 @@ body {font-family: Arial, Helvetica, sans-serif;}
     position: relative;
     overflow: hidden;
 }
-
+.btn-add {
+    background-color: aquamarine;
+}
+.btn-delete {
+    background-color: rgb(228, 69, 69);
+}
+.btn-update {
+    background-color: rgb(243, 212, 35);
+}
 .customers {
   border-collapse: collapse;
   width: 700px;
