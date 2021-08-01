@@ -144,7 +144,10 @@ $allProducts = $modelProducts->buildQueryParams([
             })
             $(document).on('click', '.cancel_data', function() {
                 var id = $(this).data('id_del');
-                console.log("id", id);
+                $("#code_" + id).attr("contenteditable", false);
+                $("#name_" + id).attr("contenteditable", false);
+                $("#price_" + id).attr("contenteditable", false);
+                $("#quantity_" + id).attr("contenteditable", false);
                 $("#update_" + id).css({
                     "display": "block"
                 });
