@@ -39,8 +39,6 @@ $allProducts = $modelProducts->buildQueryParams([
     </div>
     <h2>Welcome <?php echo $_SESSION['username']; ?></h2>
     <div>
-        <input style="width: 150px;height: 33px;" type="search" placeholder="Enter a name to searching" />
-        <button class="btn btn-primary" onclick="show_hide()">Add Product</button>
         <div class="form-popup" id="add-form">
             <form class="form-container" method="post" id="add_product">
                 <h1>New Product</h1>
@@ -59,9 +57,12 @@ $allProducts = $modelProducts->buildQueryParams([
             </form>
         </div>
     </div>
-    <h3>Bảng thống kê kho hàng</h3>
+    <div class="title_table">
+        <h3>Data Table</h3>
+        <!-- <input style="width: 150px;height: 33px;" type="search" placeholder="Enter a name to searching" /> -->
+        <button class="btn btn-primary" onclick="show_hide()">Add Product</button>
+    </div>
     <div id="load_data_ajax">
-
     </div>
     <script src="../Apps/JS/showHideElement.js"></script>
     <script type="text/javascript">

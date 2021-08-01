@@ -20,19 +20,23 @@ body {font-family: Arial, Helvetica, sans-serif; text-align: center;}
 .btn-update {
     background-color: rgb(243, 212, 35);
 }
-.customers {
-  border-collapse: collapse;
-  width: 700px;
-  margin: 25px 0;
-  font-size: 0.9em;
-  /* min-width: 400px;   */
-  border-radius: 5px 5px 0 0;
-  overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15 );
-  width: 700px;
-  margin-left: 25%;
+.title_table {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 700px;
+    margin: auto;
 }
 
+.customers {
+    width: 700px;
+    border-collapse: collapse;
+    margin: auto;
+    font-size: 0.9em;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15 );
+}
 .customers thead tr {
     background-color: aquamarine;
     color: rgb(0, 0, 0);
