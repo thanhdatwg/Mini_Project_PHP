@@ -43,16 +43,16 @@ $allProducts = $modelProducts->buildQueryParams([
         <button class="btn btn-primary" onclick="show_hide()">Add Product</button>
         <div class="form-popup" id="add-form">
             <form class="form-container" method="post" id="add_product">
-                <h1>Thêm mới sản phẩm</h1>
+                <h1>New Product</h1>
+                <br>
+                <label for="name" style="display:flex"><b>Product name</b></label>
+                <input type="text" placeholder="Enter name ..." name="name" id="name" required>
 
-                <label for="name"><b>Tên sản phẩm</b></label>
-                <input type="text" placeholder="Nhập tên" name="name" id="name" required>
+                <label for="price" style="display:flex"><b>Price</b></label>
+                <input type="number" placeholder="Enter price ..." name="price" id="price" required>
 
-                <label for="price"><b>Giá sản phẩm</b></label>
-                <input type="number" placeholder="Nhập giá" name="price" id="price" required>
-
-                <label for="quantity"><b>Số lượng</b></label>
-                <input type="number" placeholder="Nhập số lượng" name="quantity" id="quantity" required>
+                <label for="quantity" style="display:flex"><b>Quantity</b></label>
+                <input type="number" placeholder="Enter quantity" name="quantity" id="quantity" required>
 
                 <button type="submit" class="btn btn-primary" id="add_button">Submit</button>
                 <button type="button" class="btn cancel" onclick="show_hide()">Cancel</button>
@@ -128,6 +128,11 @@ $allProducts = $modelProducts->buildQueryParams([
                 $("#name_" + id).attr("contenteditable", true);
                 $("#price_" + id).attr("contenteditable", true);
                 $("#quantity_" + id).attr("contenteditable", true);
+                $("#code_" + id).css("background-color", "#cbcede");
+                $("#name_" + id).css("background-color", "#cbcede");
+                $("#price_" + id).css("background-color", "#cbcede");
+                $("#quantity_" + id).css("background-color", "#cbcede");
+                $("#action_" + id).css("background-color", "#cbcede");
                 $("#update_" + id).css({
                     "display": "none"
                 });
@@ -148,6 +153,11 @@ $allProducts = $modelProducts->buildQueryParams([
                 $("#name_" + id).attr("contenteditable", false);
                 $("#price_" + id).attr("contenteditable", false);
                 $("#quantity_" + id).attr("contenteditable", false);
+                $("#code_" + id).css("background-color", "");
+                $("#name_" + id).css("background-color", "");
+                $("#price_" + id).css("background-color", "");
+                $("#quantity_" + id).css("background-color", "");
+                $("#action_" + id).css("background-color", "");
                 $("#update_" + id).css({
                     "display": "block"
                 });
