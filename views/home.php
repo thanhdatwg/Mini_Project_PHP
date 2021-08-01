@@ -31,7 +31,6 @@ $allProducts = $modelProducts->buildQueryParams([
 </head>
 
 <body>
-
     <div class="header">
         <a href="#default" class="logo">Mini Project PHP</a>
         <div class="header-right">
@@ -43,7 +42,7 @@ $allProducts = $modelProducts->buildQueryParams([
         <input style="width: 150px;height: 33px;" type="search" placeholder="Enter a name to searching" />
         <button class="btn btn-primary" onclick="show_hide()">Add Product</button>
         <div class="form-popup" id="add-form">
-            <form class="form-container" method="post">
+            <form class="form-container" method="post" id="add_product">
                 <h1>Thêm mới sản phẩm</h1>
 
                 <label for="name"><b>Tên sản phẩm</b></label>
@@ -60,58 +59,62 @@ $allProducts = $modelProducts->buildQueryParams([
             </form>
         </div>
     </div>
-    <table class="customers">
-        <thead>
-            <tr>
-                <th>Product code</th>
-                <th>Product's name</th>
-                <th>Amount</th>
-                <th>Price</th>
-                <th style="display: flex; justify-content: center">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            // var_dump($allProducts);
-            foreach ($allProducts as $row => $product) {
-                echo '
-                    <tr>
-                        <td>' . $product["id"] . '</td>
-                        <td>' . $product["name"] . '</td>
-                        <td>' . $product["price"] . '</td>
-                        <td>' . $product["quantity"] . '</td>
-                        <td style="display: flex;justify-content: space-evenly"><button class="btn btn-primary">Update</button>
-                        <button class="btn btn-danger">Delete</button></td>
-                    </tr>
-                ';
-            }
-            ?>
-        </tbody>
-    </table>
+    <h3>Bảng thống kê kho hàng</h3>
+    <div id="load_data_ajax">
+
+    </div>
     <script src="../Apps/JS/showHideElement.js"></script>
     <script type="text/javascript">
-        $('#add_button').on('click', function() {
-            var name = $('#name').val();
-            var price = $('#price').val();
-            var quantity = $('#quantity').val();
-
-            if (name == '' || price == '' || quantity == '') {
-                alert('khong duoc bo trong cac tuong');
-            } else {
+        $(document).ready(function () {
+            // fetch data by ajax
+            function fetch_data () {
                 $.ajax({
                     url: "../Apps/Libs/ajax.php",
                     method: "POST",
-                    data: {
-                        name: name,
-                        price: price,
-                        quantity: quantity
-                    },
-                    success: function(data) {
-                        alert('truyen thanh cong');
-                    },
+                    success : function (data) {
+                        $('#load_data_ajax').html(data);
+                    }, 
                 });
             }
+            fetch_data();
+            //delete data
+            $(document).on('click', '.del_data', function () {
+                var id = $(this).data('id_del');
+                $.ajax({
+                    url: "../Apps/Libs/ajax.php",
+                    method: "POST",
+                    data: {id:id},
+                    success : function (data) {
+                        alert('Xoa thanh cong');
+                        fetch_data();
+                    }, 
+                });
+            });
+
+            // insert data
+            $('#add_button').on('click',function (event){
+                event.preventDefault();
+                var name = $('#name').val();
+                var price = $('#price').val();
+                var quantity = $('#quantity').val();
+
+                if (name== '' || price=='' || quantity ==''){
+                    alert('khong duoc bo trong cac tuong');
+                } else {
+                    $.ajax({
+                        url: "../Apps/Libs/ajax.php",
+                        method: "POST",
+                        data: {name:name, price:price, quantity:quantity},
+                        success : function (data) {
+                            alert('Thêm sản phẩm thành công!');
+                            $('#add_product')[0].reset();
+                            fetch_data();
+                        }, 
+                    });
+                }
+            });
         });
+        
     </script>
 </body>
 
