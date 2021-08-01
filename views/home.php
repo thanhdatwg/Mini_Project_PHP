@@ -122,41 +122,39 @@ $allProducts = $modelProducts->buildQueryParams([
 
             });
 
-            $(document).on('click', '#update_product', function() {
-                var el = document.getElementById("code-product")
-                var range = document.createRange()
-                var sel = window.getSelection()
-
-                range.setStart(el.childNodes[2], 5)
-                range.collapse(true)
-
-                sel.removeAllRanges()
-                sel.addRange(range)
-                $("#update_product").css({
+            $(document).on('click', '.update_data', function() {
+                var id = $(this).data('id_del');
+                $("#code_" + id).attr("contenteditable", true);
+                $("#name_" + id).attr("contenteditable", true);
+                $("#price_" + id).attr("contenteditable", true);
+                $("#quantity_" + id).attr("contenteditable", true);
+                $("#update_" + id).css({
                     "display": "none"
                 });
-                $("#delete_product").css({
+                $("#delete_" + id).css({
                     "display": "none"
                 });
-                $("#save_value").css({
+                $("#save_" + id).css({
                     "display": "block"
                 });
-                $("#cancel").css({
+                $("#cancel_" + id).css({
                     "display": "block"
                 });
 
             })
-            $(document).on('click', '#cancel', function() {
-                $("#update_product").css({
+            $(document).on('click', '.cancel_data', function() {
+                var id = $(this).data('id_del');
+                console.log("id", id);
+                $("#update_" + id).css({
                     "display": "block"
                 });
-                $("#delete_product").css({
+                $("#delete_" + id).css({
                     "display": "block"
                 });
-                $("#save_value").css({
+                $("#save_" + id).css({
                     "display": "none"
                 });
-                $("#cancel").css({
+                $("#cancel_" + id).css({
                     "display": "none"
                 });
 

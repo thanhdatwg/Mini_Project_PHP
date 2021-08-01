@@ -43,14 +43,16 @@ if (!empty($allProducts)) {
     foreach ($allProducts as $product) {
         $out_put .= '
                 <tr>
-                    <td id="code-product" contenteditable>' . $product["id"] . '</td>
-                    <td contenteditable>' . $product["name"] . '</td>
-                    <td contenteditable>' . $product["price"] . '</td>
-                    <td contenteditable>' . $product["quantity"] . '</td>
-                    <td style="display:flex; justify-content: space-evenly"><button id="update_product" class="btn btn-warning">Update</button>
-                    <button style="display:none" id="save_value" class="btn btn-success">Save</button>
-                    <button style="display:none" id="cancel" class="btn btn-danger">Cancel</button>
-                    <button id="delete_product" class="btn btn-danger del_data" data-id_del=' . $product["id"] . '>Delete</button></td>
+                    <td id=' . "code_" .  $product["id"] . '>' . $product["id"] . '</td>
+                    <td id=' . "name_" .  $product["id"] . '>' . $product["name"] . '</td>
+                    <td id=' . "price_" .  $product["id"] . '>' . $product["price"] . '</td>
+                    <td id=' . "quantity_" .  $product["id"] . '>' . $product["quantity"] . '</td>
+                    <td style="display:flex; justify-content: space-evenly">
+                    <button id=' . "update_" .  $product["id"] . ' class="btn btn-warning update_data" data-id_del=' . $product["id"] . '>Update</button>
+                    <button id=' . "delete_" .  $product["id"] . ' class="btn btn-danger del_data" data-id_del=' . $product["id"] . '>Delete</button>
+                    <button id=' . "save_" .  $product["id"] . ' class="btn btn-success" style="display:none" >Save</button>
+                    <button id=' . "cancel_" .  $product["id"] . ' class="btn btn-danger cancel_data" data-id_del=' . $product["id"] . ' style="display:none" >Cancel</button>
+                    </td>
                 </tr>
             ';
     }
