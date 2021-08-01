@@ -47,7 +47,7 @@ if (!empty($allProducts)) {
                     <td id=' . "name_" .  $product["id"] . '>' . $product["name"] . '</td>
                     <td id=' . "price_" .  $product["id"] . '>' . $product["price"] . '</td>
                     <td id=' . "quantity_" .  $product["id"] . '>' . $product["quantity"] . '</td>
-                    <td style="display:flex; justify-content: space-evenly">
+                    <td id=' . "action_" .  $product["id"] . ' style="display:flex; justify-content: space-evenly">
                     <button id=' . "update_" .  $product["id"] . ' class="btn btn-warning update_data" data-id_del=' . $product["id"] . '>Update</button>
                     <button id=' . "delete_" .  $product["id"] . ' class="btn btn-danger del_data" data-id_del=' . $product["id"] . '>Delete</button>
                     <button id=' . "save_" .  $product["id"] . ' class="btn btn-success save_data" style="display:none" >Save</button>
