@@ -46,8 +46,8 @@
                 <tr>
                     <td contenteditable>'. $product["id"].'</td>
                     <td contenteditable>'. $product["name"] .'</td>
-                    <td>'. $product["price"].'</td>
-                    <td>'. $product["quantity"] .'</td>
+                    <td contenteditable>'. $product["price"].'</td>
+                    <td contenteditable>'. $product["quantity"] .'</td>
                     <td><button class="btn btn-update">Update</button>
                     <button class="btn btn-delete del_data" data-id_del='.$product["id"].'>Delete</button></td>
                 </tr>

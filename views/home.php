@@ -73,12 +73,10 @@ $allProducts = $modelProducts->buildQueryParams([
                     method: "POST",
                     success : function (data) {
                         $('#load_data_ajax').html(data);
-                        // fetch_data();
                     }, 
                 });
             }
             fetch_data();
-
             //delete data
             $(document).on('click', '.del_data', function () {
                 var id = $(this).data('id_del');
@@ -95,7 +93,7 @@ $allProducts = $modelProducts->buildQueryParams([
 
             // insert data
             $('#add_button').on('click',function (event){
-                // event.preventDefault();
+                event.preventDefault();
                 var name = $('#name').val();
                 var price = $('#price').val();
                 var quantity = $('#quantity').val();
@@ -110,6 +108,7 @@ $allProducts = $modelProducts->buildQueryParams([
                         success : function (data) {
                             alert('Thêm sản phẩm thành công!');
                             $('#add_product')[0].reset();
+                            fetch_data();
                         }, 
                     });
                 }
