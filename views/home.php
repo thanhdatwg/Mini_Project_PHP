@@ -93,6 +93,30 @@ $allProducts = $modelProducts->buildQueryParams([
                 });
             });
 
+            // update product
+            $(document).on('click', '.save_data', function() {
+                
+                var currentRow = $(this).closest("tr");
+                var id = parseInt(currentRow.find("td:eq(0)").text());
+                var name = currentRow.find("td:eq(1)").text();
+                var price = parseInt(currentRow.find("td:eq(2)").text());
+                var quantity = parseInt(currentRow.find("td:eq(3)").text());
+
+                $.ajax({
+                    url: "../Apps/Libs/update.php",
+                    method: "POST",
+                    data: {
+                        id: id,
+                        name : name,
+                        price : price,
+                        quantity: quantity,
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        fetch_data();
+                    },
+                });
+            });
             // insert data
             $('#add_button').on('click', function(event) {
                 // event.preventDefault();

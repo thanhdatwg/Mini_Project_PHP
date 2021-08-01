@@ -96,4 +96,16 @@ class Apps_Libs_DbConnection {
         $this->buildCondition($this->queryParams["where"]) . " " . $this->queryParams["other"];
         return $this->query($sql);
     }
+
+    public function updateProduct ($data) {
+        $convert = [
+            'id' => $data[0],
+            'name' => $data[1],
+            'price' => $data[2],
+            'quantity' => $data[3],
+        ];
+        $sql = "update ". $this->tableName ." set name=:name, price=:price, quantity=:quantity where id=:id";
+        $stmt= self::$connection->prepare($sql);
+        $stmt->execute($convert);
+    }
 }

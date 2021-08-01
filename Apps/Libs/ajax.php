@@ -50,7 +50,7 @@ if (!empty($allProducts)) {
                     <td style="display:flex; justify-content: space-evenly">
                     <button id=' . "update_" .  $product["id"] . ' class="btn btn-warning update_data" data-id_del=' . $product["id"] . '>Update</button>
                     <button id=' . "delete_" .  $product["id"] . ' class="btn btn-danger del_data" data-id_del=' . $product["id"] . '>Delete</button>
-                    <button id=' . "save_" .  $product["id"] . ' class="btn btn-success" style="display:none" >Save</button>
+                    <button id=' . "save_" .  $product["id"] . ' class="btn btn-success save_data" style="display:none" >Save</button>
                     <button id=' . "cancel_" .  $product["id"] . ' class="btn btn-danger cancel_data" data-id_del=' . $product["id"] . ' style="display:none" >Cancel</button>
                     </td>
                 </tr>
