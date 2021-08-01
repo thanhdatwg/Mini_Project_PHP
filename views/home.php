@@ -145,7 +145,6 @@ $allProducts = $modelProducts->buildQueryParams([
                 }
 
             });
-
             $(document).on('click', '.update_data', function() {
                 var id = $(this).data('id_del');
                 $("#code_" + id).attr("contenteditable", true);
