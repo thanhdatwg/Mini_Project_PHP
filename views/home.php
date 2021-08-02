@@ -115,7 +115,7 @@ $allProducts = $modelProducts->buildQueryParams([
                         },
                         success: function(data) {
                             $('#alert_notify').alert('close');
-                            // alert('Delete product successfully');
+                            alert('Delete product successfully');
                             fetch_data();
                         },
                     });
@@ -190,6 +190,7 @@ $allProducts = $modelProducts->buildQueryParams([
                             if (data == "1"){
                                 alert('Product added successfully!!');
                                 $('#add_product')[0].reset();
+                                show_hide();
                                 fetch_data();
                             } else {
                                 event.preventDefault();
