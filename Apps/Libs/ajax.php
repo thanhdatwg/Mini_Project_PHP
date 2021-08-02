@@ -39,7 +39,12 @@ $out_put .= '
             </thead>
             <tbody>
     ';
+
 if (!empty($allProducts)) {
+    $string_Id = '';
+    foreach ($allProducts as $product) {
+        $string_Id .= $product["id"] . "/";
+    }
     foreach ($allProducts as $product) {
         $out_put .= '
                 <tr>
@@ -48,10 +53,10 @@ if (!empty($allProducts)) {
                     <td id=' . "price_" .  $product["id"] . '>' . $product["price"] . '</td>
                     <td id=' . "quantity_" .  $product["id"] . '>' . $product["quantity"] . '</td>
                     <td id=' . "action_" .  $product["id"] . ' style="display:flex; justify-content: space-evenly">
-                    <button id=' . "update_" .  $product["id"] . ' class="btn btn-warning update_data" data-id_del=' . $product["id"] . '>Update</button>
+                    <button id=' . "update_" .  $product["id"] . ' class="btn btn-warning update_data" data-id_del=' . $product["id"] . ' data-id_string=' . $string_Id . '>Update</button>
                     <button id=' . "delete_" .  $product["id"] . ' class="btn btn-danger del_data" data-id_del=' . $product["id"] . ' data-toggle="modal" data-target="#exampleModal">Delete</button>
                     <button id=' . "save_" .  $product["id"] . ' class="btn btn-success save_data" data-id_update=' . $product["id"] . ' style="display:none" >Save</button>
-                    <button id=' . "cancel_" .  $product["id"] . ' class="btn btn-danger cancel_data" data-id_del=' . $product["id"] . ' style="display:none" >Cancel</button>
+                    <button id=' . "cancel_" .  $product["id"] . ' class="btn btn-danger cancel_data" data-id_del=' . $product["id"] . ' data-id_string=' . $string_Id . ' style="display:none" >Cancel</button>
                     </td>
                 </tr>
             ';

@@ -191,52 +191,101 @@ $allProducts = $modelProducts->buildQueryParams([
             // xu ly logic giao dien khi click cac button
             $(document).on('click', '.update_data', function() {
                 var id = $(this).data('id_del');
-                $("#code_" + id).attr("contenteditable", true);
-                $("#name_" + id).attr("contenteditable", true);
-                $("#price_" + id).attr("contenteditable", true);
-                $("#quantity_" + id).attr("contenteditable", true);
-                $("#code_" + id).css("background-color", "#cbcede");
-                $("#name_" + id).css("background-color", "#cbcede");
-                $("#price_" + id).css("background-color", "#cbcede");
-                $("#quantity_" + id).css("background-color", "#cbcede");
-                $("#action_" + id).css("background-color", "#cbcede");
-                $("#update_" + id).css({
-                    "display": "none"
-                });
-                $("#delete_" + id).css({
-                    "display": "none"
-                });
-                $("#save_" + id).css({
-                    "display": "block"
-                });
-                $("#cancel_" + id).css({
-                    "display": "block"
-                });
+                var id_string = $(this).data('id_string');
+                var allProducts = id_string.split('/');
+                var newArr = allProducts.splice(0, allProducts.length - 1);
+                for (let index = 0; index < newArr.length; index++) {
+                    const element = newArr[index];
+                    if (id == element) {
+                        $("#code_" + id).attr("contenteditable", true);
+                        $("#name_" + id).attr("contenteditable", true);
+                        $("#price_" + id).attr("contenteditable", true);
+                        $("#quantity_" + id).attr("contenteditable", true);
+                        $("#code_" + id).css("background-color", "#cbcede");
+                        $("#name_" + id).css("background-color", "#cbcede");
+                        $("#price_" + id).css("background-color", "#cbcede");
+                        $("#quantity_" + id).css("background-color", "#cbcede");
+                        $("#action_" + id).css("background-color", "#cbcede");
+                        $("#update_" + id).css({
+                            "display": "none"
+                        });
+                        $("#delete_" + id).css({
+                            "display": "none"
+                        });
+                        $("#save_" + id).css({
+                            "display": "block"
+                        });
+                        $("#cancel_" + id).css({
+                            "display": "block"
+                        });
+                    } else {
+                        $("#update_" + element).css({
+                            "display": "block"
+                        });
+                        $("#delete_" + element).css({
+                            "display": "block"
+                        });
+                        $("#update_" + element).attr("disabled", true);
+                        $("#delete_" + element).attr("disabled", true);
+                        $("#save_" + element).css({
+                            "display": "none"
+                        });
+                        $("#cancel_" + element).css({
+                            "display": "none"
+                        });
+                    }
+
+                }
+
 
             })
             $(document).on('click', '.cancel_data', function() {
                 var id = $(this).data('id_del');
-                $("#code_" + id).attr("contenteditable", false);
-                $("#name_" + id).attr("contenteditable", false);
-                $("#price_" + id).attr("contenteditable", false);
-                $("#quantity_" + id).attr("contenteditable", false);
-                $("#code_" + id).css("background-color", "");
-                $("#name_" + id).css("background-color", "");
-                $("#price_" + id).css("background-color", "");
-                $("#quantity_" + id).css("background-color", "");
-                $("#action_" + id).css("background-color", "");
-                $("#update_" + id).css({
-                    "display": "block"
-                });
-                $("#delete_" + id).css({
-                    "display": "block"
-                });
-                $("#save_" + id).css({
-                    "display": "none"
-                });
-                $("#cancel_" + id).css({
-                    "display": "none"
-                });
+                var id_string = $(this).data('id_string');
+                var allProducts = id_string.split('/');
+                var newArr = allProducts.splice(0, allProducts.length - 1);
+                for (let index = 0; index < newArr.length; index++) {
+                    const element = newArr[index];
+                    if (id == element) {
+                        $("#code_" + id).attr("contenteditable", false);
+                        $("#name_" + id).attr("contenteditable", false);
+                        $("#price_" + id).attr("contenteditable", false);
+                        $("#quantity_" + id).attr("contenteditable", false);
+                        $("#code_" + id).css("background-color", "");
+                        $("#name_" + id).css("background-color", "");
+                        $("#price_" + id).css("background-color", "");
+                        $("#quantity_" + id).css("background-color", "");
+                        $("#action_" + id).css("background-color", "");
+                        $("#update_" + id).css({
+                            "display": "block"
+                        });
+                        $("#delete_" + id).css({
+                            "display": "block"
+                        });
+                        $("#save_" + id).css({
+                            "display": "none"
+                        });
+                        $("#cancel_" + id).css({
+                            "display": "none"
+                        });
+                    } else {
+                        $("#update_" + element).css({
+                            "display": "block"
+                        });
+                        $("#delete_" + element).css({
+                            "display": "block"
+                        });
+                        $("#update_" + element).attr("disabled", false);
+                        $("#delete_" + element).attr("disabled", false);
+                        $("#save_" + element).css({
+                            "display": "none"
+                        });
+                        $("#cancel_" + element).css({
+                            "display": "none"
+                        });
+                    }
+                }
+
 
             })
         });
