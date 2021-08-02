@@ -37,20 +37,24 @@ $allProducts = $modelProducts->buildQueryParams([
             <a class="active" href="logout.php">Logout</a>
         </div>
     </div>
-    <h2>Welcome <?php echo $_SESSION['username']; ?></h2>
+    <h2>Welcome <?php echo $_SESSION['username']." !"; ?></h2>
     <div>
         <div class="form-popup" id="add-form">
             <form class="form-container" method="post" id="add_product">
                 <h1>New Product</h1>
                 <br>
+
+                <label for="code" style="display:flex"><b>Product code</b></label>
+                <input type="text" placeholder="Enter code ..." name="code" id="code_add_form" required>
+
                 <label for="name" style="display:flex"><b>Product name</b></label>
-                <input type="text" placeholder="Enter name ..." name="name" id="name" required>
+                <input type="text" placeholder="Enter name ..." name="name" id="name_add_form" required>
 
                 <label for="price" style="display:flex"><b>Price</b></label>
-                <input type="number" placeholder="Enter price ..." name="price" id="price" required>
+                <input type="number" placeholder="Enter price ..." name="price" id="price_add_form" required>
 
                 <label for="quantity" style="display:flex"><b>Quantity</b></label>
-                <input type="number" placeholder="Enter quantity" name="quantity" id="quantity" required>
+                <input type="number" placeholder="Enter quantity" name="quantity" id="quantity_add_form" required>
 
                 <button type="submit" class="btn btn-primary" id="add_button">Submit</button>
                 <button type="button" class="btn cancel" onclick="show_hide()">Cancel</button>
@@ -58,7 +62,7 @@ $allProducts = $modelProducts->buildQueryParams([
         </div>
     </div>
     <div class="title_table">
-        <h3>Data Table</h3>
+        <h3>Products Table</h3>
         <button class="btn btn-primary" onclick="show_hide()">Add Product</button>
     </div>
     <div id="load_data_ajax">
@@ -94,21 +98,30 @@ $allProducts = $modelProducts->buildQueryParams([
             });
 
             // update product
+            function isDigit (string){
+                var regex = /^[0-9]+$/i;
+                var checked = regex.test(string);
+                return checked;
+            }
             $(document).on('click', '.save_data', function() {
-
+                var id = $(this).data('id_update');
                 var currentRow = $(this).closest("tr");
-                var id = parseInt(currentRow.find("td:eq(0)").text());
+                var code = (currentRow.find("td:eq(0)").text());
                 var name = currentRow.find("td:eq(1)").text();
-                var price = parseInt(currentRow.find("td:eq(2)").text());
-                var quantity = parseInt(currentRow.find("td:eq(3)").text());
-
-                $.ajax({
+                var price = (currentRow.find("td:eq(2)").text());
+                var quantity = (currentRow.find("td:eq(3)").text());
+                
+                if (isDigit(price) && isDigit(quantity)){
+                    price = parseInt(price);
+                    quantity = parseInt(quantity);
+                    $.ajax({
                     url: "../Apps/Libs/update.php",
                     method: "POST",
                     data: {
                         id: id,
-                        name: name,
-                        price: price,
+                        code: code,
+                        name : name,
+                        price : price,
                         quantity: quantity,
                     },
                     success: function(data) {
@@ -116,15 +129,19 @@ $allProducts = $modelProducts->buildQueryParams([
                         fetch_data();
                     },
                 });
+                } else {
+                    alert ("You entered wrong data");
+                }
             });
             // insert data
             $('#add_button').on('click', function(event) {
                 // event.preventDefault();
-                var name = $('#name').val();
-                var price = $('#price').val();
-                var quantity = $('#quantity').val();
-                let hasError = false
-                if (name == '' || price == '' || quantity == '') {
+                var code = $('#code_add_form').val();
+                var name = $('#name_add_form').val();
+                var price = $('#price_add_form').val();
+                var quantity = $('#quantity_add_form').val();
+                let hasError = false;
+                if (name == '' || price == '' || quantity == '' || code == '') {
                     hasError = true
                 }
                 if (!hasError) {
@@ -132,6 +149,7 @@ $allProducts = $modelProducts->buildQueryParams([
                         url: "../Apps/Libs/ajax.php",
                         method: "POST",
                         data: {
+                            code: code,
                             name: name,
                             price: price,
                             quantity: quantity
@@ -145,6 +163,8 @@ $allProducts = $modelProducts->buildQueryParams([
                 }
 
             });
+
+            // xu ly logic giao dien khi click cac button
             $(document).on('click', '.update_data', function() {
                 var id = $(this).data('id_del');
                 $("#code_" + id).attr("contenteditable", true);

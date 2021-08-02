@@ -103,8 +103,9 @@ class Apps_Libs_DbConnection {
             'name' => $data[1],
             'price' => $data[2],
             'quantity' => $data[3],
+            'code' => $data[4],
         ];
-        $sql = "update ". $this->tableName ." set name=:name, price=:price, quantity=:quantity where id=:id";
+        $sql = "update ". $this->tableName ." set name=:name, price=:price, quantity=:quantity, code=:code where id=:id";
         $stmt= self::$connection->prepare($sql);
         $stmt->execute($convert);
     }
