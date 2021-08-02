@@ -32,8 +32,8 @@ $out_put .= '
                 <tr>
                     <th>Product code</th>
                     <th>Product name</th>
-                    <th>Quantity</th>
                     <th>Price</th>
+                    <th>Quantity</th>
                     <th style="display:flex; justify-content: center">Action</th>
                 </tr>
             </thead>

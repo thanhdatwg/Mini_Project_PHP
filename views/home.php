@@ -37,7 +37,7 @@ $allProducts = $modelProducts->buildQueryParams([
             <a class="active" href="logout.php">Logout</a>
         </div>
     </div>
-    <h2>Welcome <?php echo $_SESSION['username']; ?></h2>
+    <h2>Welcome <?php echo $_SESSION['username']." !"; ?></h2>
     <div>
         <div class="form-popup" id="add-form">
             <form class="form-container" method="post" id="add_product">
@@ -62,7 +62,7 @@ $allProducts = $modelProducts->buildQueryParams([
         </div>
     </div>
     <div class="title_table">
-        <h3>Data Table</h3>
+        <h3>Products Table</h3>
         <button class="btn btn-primary" onclick="show_hide()">Add Product</button>
     </div>
     <div id="load_data_ajax">
