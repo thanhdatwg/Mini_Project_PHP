@@ -1,0 +1,33 @@
+#login {
+    padding: 20px 60px;
+    background: #46484e;
+    color: #ece2e2;
+    display: inline-block;
+    border-radius: 4px;
+}
+
+.field-group {
+    margin-top: 15px;
+}
+
+.input-field {
+    width: 200px;
+    border-radius: 4px;
+    padding: 8px;
+    border: #A3C3E7 1px solid;
+
+}
+
+.form-submit-button {
+    background: #1458c3;
+    border: 0;
+    padding: 8px 20px;
+    border-radius: 4px;
+    color: #FFF;
+    text-transform: uppercase;
+}
+
+.error-message {
+    text-align: center;
+    color: #FF0000;
+}

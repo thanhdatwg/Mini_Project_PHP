@@ -1,7 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header('Location: ../index.php');
+}
 include '../Apps/libraries.php';
-
 $modelProducts = new Models_Products();
 $allProducts = $modelProducts->buildQueryParams([
     "select" => "*",
