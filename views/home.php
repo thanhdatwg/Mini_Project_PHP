@@ -94,7 +94,7 @@ $allProducts = $modelProducts->buildQueryParams([
             // fetch data by ajax
             function fetch_data() {
                 $.ajax({
-                    url: "../Apps/Libs/ajax.php",
+                    url: "../Apps/Controller/ajax.php",
                     method: "POST",
                     success: function(data) {
                         $('#load_data_ajax').html(data);
@@ -108,14 +108,14 @@ $allProducts = $modelProducts->buildQueryParams([
                 $("#confirm_delete").on('click', function() {
                     $('#confirm_delete').attr('data-dismiss', "modal")
                     $.ajax({
-                        url: "../Apps/Libs/ajax.php",
+                        url: "../Apps/Controller/ajax.php",
                         method: "POST",
                         data: {
                             id: id
                         },
                         success: function(data) {
                             $('#alert_notify').alert('close');
-                            alert('Delete product successfully');
+                            // alert('Delete product successfully');
                             fetch_data();
                         },
                     });
@@ -141,7 +141,7 @@ $allProducts = $modelProducts->buildQueryParams([
                     price = parseInt(price);
                     quantity = parseInt(quantity);
                     $.ajax({
-                        url: "../Apps/Libs/update.php",
+                        url: "../Apps/Controller/update.php",
                         method: "POST",
                         data: {
                             id: id,
@@ -151,8 +151,13 @@ $allProducts = $modelProducts->buildQueryParams([
                             quantity: quantity,
                         },
                         success: function(data) {
-                            alert('Product information update successfully!!');
-                            fetch_data();
+                            console.log(data);
+                            if (data == "1"){
+                                alert('Product information update successfully!!');
+                                fetch_data();
+                            } else {
+                                alert('Product code have to unique !!');
+                            }
                         },
                     });
                 } else {
@@ -161,7 +166,7 @@ $allProducts = $modelProducts->buildQueryParams([
             });
             // insert data
             $('#add_button').on('click', function(event) {
-                // event.preventDefault();
+                event.preventDefault();
                 var code = $('#code_add_form').val();
                 var name = $('#name_add_form').val();
                 var price = $('#price_add_form').val();
@@ -172,7 +177,7 @@ $allProducts = $modelProducts->buildQueryParams([
                 }
                 if (!hasError) {
                     $.ajax({
-                        url: "../Apps/Libs/ajax.php",
+                        url: "../Apps/Controller/add.php",
                         method: "POST",
                         data: {
                             code: code,
@@ -181,13 +186,19 @@ $allProducts = $modelProducts->buildQueryParams([
                             quantity: quantity
                         },
                         success: function(data) {
-                            alert('Product added successfully!!');
-                            $('#add_product')[0].reset();
-                            fetch_data();
+                            console.log(data);
+                            if (data == "1"){
+                                alert('Product added successfully!!');
+                                $('#add_product')[0].reset();
+                                fetch_data();
+                            } else {
+                                event.preventDefault();
+                                alert('Product code you have entered is already exits !!');
+                            }
+                            
                         },
                     });
                 }
-
             });
 
             // xu ly logic giao dien khi click cac button
