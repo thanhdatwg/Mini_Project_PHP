@@ -298,8 +298,7 @@ $allProducts = $modelProducts->buildQueryParams([
                         });
                     }
                 }
-
-
+                fetch_data();
             })
         });
     </script>
