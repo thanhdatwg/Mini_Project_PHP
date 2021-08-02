@@ -59,7 +59,7 @@ if (!empty($allProducts)) {
 } else {
     $out_put .= '
             <tr>
-                <td colspan="5" style="text-align: center"> Danh sách đang trống</td>
+                <td colspan="5" style="text-align: center">No data</td>
             </tr>
         ';
 }

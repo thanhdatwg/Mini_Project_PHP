@@ -63,7 +63,6 @@ $allProducts = $modelProducts->buildQueryParams([
     </div>
     <div class="title_table">
         <h3>Data Table</h3>
-        <!-- <input style="width: 150px;height: 33px;" type="search" placeholder="Enter a name to searching" /> -->
         <button class="btn btn-primary" onclick="show_hide()">Add Product</button>
     </div>
     <div id="load_data_ajax">
@@ -92,7 +91,7 @@ $allProducts = $modelProducts->buildQueryParams([
                         id: id
                     },
                     success: function(data) {
-                        alert('Xoa thanh cong');
+                        alert('Delete product successfully');
                         fetch_data();
                     },
                 });
@@ -126,7 +125,7 @@ $allProducts = $modelProducts->buildQueryParams([
                         quantity: quantity,
                     },
                     success: function(data) {
-                        console.log(data);
+                        alert('Product information update successfully!!');
                         fetch_data();
                     },
                 });
@@ -156,7 +155,7 @@ $allProducts = $modelProducts->buildQueryParams([
                             quantity: quantity
                         },
                         success: function(data) {
-                            alert('Thêm sản phẩm thành công!');
+                            alert('Product added successfully!!');
                             $('#add_product')[0].reset();
                             fetch_data();
                         },
