@@ -37,7 +37,7 @@ $allProducts = $modelProducts->buildQueryParams([
             <a class="active" href="logout.php">Logout</a>
         </div>
     </div>
-    <h2>Welcome <?php echo $_SESSION['username']." !"; ?></h2>
+    <h2>Welcome <?php echo $_SESSION['username'] . " !"; ?></h2>
     <div>
         <div class="form-popup" id="add-form">
             <form class="form-container" method="post" id="add_product">
@@ -67,6 +67,25 @@ $allProducts = $modelProducts->buildQueryParams([
     </div>
     <div id="load_data_ajax">
     </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Confirm Delete</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4>Are you sure ?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="confirm_delete" type="button" class="btn btn-danger">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="../Apps/JS/showHideElement.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -84,21 +103,26 @@ $allProducts = $modelProducts->buildQueryParams([
             //delete data
             $(document).on('click', '.del_data', function() {
                 var id = $(this).data('id_del');
-                $.ajax({
-                    url: "../Apps/Libs/ajax.php",
-                    method: "POST",
-                    data: {
-                        id: id
-                    },
-                    success: function(data) {
-                        alert('Delete product successfully');
-                        fetch_data();
-                    },
-                });
+                $("#confirm_delete").on('click', function() {
+                    $('#confirm_delete').attr('data-dismiss', "modal")
+                    $.ajax({
+                        url: "../Apps/Libs/ajax.php",
+                        method: "POST",
+                        data: {
+                            id: id
+                        },
+                        success: function(data) {
+                            $('#alert_notify').alert('close');
+                            alert('Delete product successfully');
+                            fetch_data();
+                        },
+                    });
+                })
+
             });
 
             // update product
-            function isDigit (string){
+            function isDigit(string) {
                 var regex = /^[0-9]+$/i;
                 var checked = regex.test(string);
                 return checked;
@@ -110,27 +134,27 @@ $allProducts = $modelProducts->buildQueryParams([
                 var name = currentRow.find("td:eq(1)").text();
                 var price = (currentRow.find("td:eq(2)").text());
                 var quantity = (currentRow.find("td:eq(3)").text());
-                
-                if (isDigit(price) && isDigit(quantity)){
+
+                if (isDigit(price) && isDigit(quantity)) {
                     price = parseInt(price);
                     quantity = parseInt(quantity);
                     $.ajax({
-                    url: "../Apps/Libs/update.php",
-                    method: "POST",
-                    data: {
-                        id: id,
-                        code: code,
-                        name : name,
-                        price : price,
-                        quantity: quantity,
-                    },
-                    success: function(data) {
-                        alert('Product information update successfully!!');
-                        fetch_data();
-                    },
-                });
+                        url: "../Apps/Libs/update.php",
+                        method: "POST",
+                        data: {
+                            id: id,
+                            code: code,
+                            name: name,
+                            price: price,
+                            quantity: quantity,
+                        },
+                        success: function(data) {
+                            alert('Product information update successfully!!');
+                            fetch_data();
+                        },
+                    });
                 } else {
-                    alert ("You entered wrong data");
+                    alert("You entered wrong data");
                 }
             });
             // insert data
