@@ -115,7 +115,7 @@ $allProducts = $modelProducts->buildQueryParams([
                         },
                         success: function(data) {
                             $('#alert_notify').alert('close');
-                            alert('Delete product successfully');
+                            // alert('Delete product successfully');
                             fetch_data();
                         },
                     });
