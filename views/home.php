@@ -4,11 +4,7 @@ if (!isset($_SESSION['username'])) {
     header('Location: ../index.php');
 }
 include '../Apps/libraries.php';
-$modelProducts = new Models_Products();
-$allProducts = $modelProducts->buildQueryParams([
-    "select" => "*",
-    "where" => "",
-])->selectAll();
+
 ?>
 
 <!DOCTYPE html>
@@ -92,11 +88,13 @@ $allProducts = $modelProducts->buildQueryParams([
     <script type="text/javascript">
         $(document).ready(function() {
             // fetch data by ajax
+            
             function fetch_data() {
                 $.ajax({
                     url: "../Apps/Controller/ajax.php",
                     method: "POST",
                     success: function(data) {
+                        // console.log(data);
                         $('#load_data_ajax').html(data);
                     },
                 });
