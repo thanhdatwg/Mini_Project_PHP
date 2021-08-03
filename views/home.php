@@ -56,7 +56,7 @@ $allProducts = $modelProducts->buildQueryParams([
                 <input type="number" placeholder="Enter price ..." name="price" id="price_add_form" required>
 
                 <label for="quantity" style="display:flex"><b>Quantity</b></label>
-                <input type="number" placeholder="Enter quantity" name="quantity" id="quantity_add_form" required>
+                <input type="number" placeholder="Enter quantity ..." name="quantity" id="quantity_add_form" required>
 
                 <button type="submit" class="btn btn-primary" id="add_button">Submit</button>
                 <button type="button" class="btn cancel" onclick="show_hide()">Cancel</button>
@@ -152,7 +152,7 @@ $allProducts = $modelProducts->buildQueryParams([
                         },
                         success: function(data) {
                             console.log(data);
-                            if (data == "1"){
+                            if (data == "1") {
                                 alert('Product information update successfully!!');
                                 fetch_data();
                             } else {
@@ -187,7 +187,7 @@ $allProducts = $modelProducts->buildQueryParams([
                         },
                         success: function(data) {
                             console.log(data);
-                            if (data == "1"){
+                            if (data == "1") {
                                 alert('Product added successfully!!');
                                 $('#add_product')[0].reset();
                                 show_hide();
@@ -196,7 +196,7 @@ $allProducts = $modelProducts->buildQueryParams([
                                 event.preventDefault();
                                 alert('Product code you have entered is already exits !!');
                             }
-                            
+
                         },
                     });
                 }

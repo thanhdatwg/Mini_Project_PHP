@@ -40,7 +40,9 @@
     session_start();
     //connection to server & database
     $conn = mysqli_connect('localhost', 'root', 'root', 'Mini_project_php') or die('Unable to connect');
-
+    if (isset($_SESSION['username'])) {
+        header('location:Views/home.php');
+    }
     if (isset($_POST["login"])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
